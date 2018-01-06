@@ -98,6 +98,19 @@ public class GameResource {
     }
 
     /**
+     * GET  /games/:color : get all the User's Black games.
+     *
+     * @return the ResponseEntity with status 200 (OK) and the list of games in body
+     */
+    @GetMapping("/games/:color")
+    @Timed
+    public ResponseEntity<List<Game>> getAllUsersBlackGames() {
+        log.debug("REST request to get a page of Games");
+        List<Game> page = gameService.findUsersBlackGames();
+        return new ResponseEntity<>(page, HttpStatus.OK);
+    }
+
+    /**
      * GET  /games/:id : get the "id" game.
      *
      * @param id the id of the game to retrieve

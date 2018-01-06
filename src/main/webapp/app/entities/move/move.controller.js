@@ -16,7 +16,7 @@
         loadAll();
 
         function loadAll() {
-            Move.query(function(result) {
+            Move.simon(function(result) {
                 vm.moves = result;
                 vm.searchQuery = null;
             });

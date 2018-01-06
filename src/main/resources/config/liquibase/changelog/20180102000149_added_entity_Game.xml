@@ -19,6 +19,7 @@
     -->
     <changeSet id="20180102000149-1" author="jhipster">
         <createTable tableName="game">
+
             <column name="id" type="bigint" autoIncrement="${autoIncrement}">
                 <constraints primaryKey="true" nullable="false"/>
             </column>
@@ -43,9 +44,11 @@
             </column>
             <column name="player_black_id" type="bigint">
                 <constraints nullable="true" />
-            </column>            <column name="player_white_id" type="bigint">
+            </column>
+            <column name="player_white_id" type="bigint">
                 <constraints nullable="true" />
-            </column>            <column name="updated_by_user_id" type="bigint">
+            </column>
+            <column name="updated_by_user_id" type="bigint">
                 <constraints nullable="true" />
             </column>
             <column name="parent_game_id" type="bigint">
@@ -55,6 +58,10 @@
             <!-- jhipster-needle-liquibase-add-column - JHipster will add columns here, do not remove-->
         </createTable>
 
+        <loadData encoding="UTF-8"
+                  file="config/liquibase/game-load.csv"
+                  separator=","
+                  tableName="game"/>
     </changeSet>
     <!-- jhipster-needle-liquibase-add-changeset - JHipster will add changesets here, do not remove-->
 </databaseChangeLog>

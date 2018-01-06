@@ -6,9 +6,11 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
 
 /**
  * Service Implementation for managing Game.
@@ -58,6 +60,20 @@ public class GameService {
     public Game findOne(Long id) {
         log.debug("Request to get Game : {}", id);
         return gameRepository.findOne(id);
+    }
+
+
+    /**
+     * Get User's Black Games
+     *
+     * @param id the id of the User
+     * @return the list of entities
+     */
+    @Transactional(readOnly = true)
+    public List<Game> findUsersBlackGames() {
+        String username = SecurityContextHolder.getContext().getAuthentication().getName();
+        log.debug("Request to get User {}'s Black Games", username);
+        return  gameRepository.findByPlayerBlackLogin(username);
     }
 
     /**

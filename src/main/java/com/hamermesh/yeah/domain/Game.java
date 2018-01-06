@@ -53,24 +53,25 @@ public class Game implements Serializable {
     private Set<Game> childGames = new HashSet<>();
 
     @OneToMany(mappedBy = "game")
-    @JsonIgnore
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
     private Set<Move> gameMoves = new HashSet<>();
 
     @OneToOne
-//    @JoinColumn(unique = true)
     private User playerBlack;
 
     @OneToOne
-//    @JoinColumn(unique = true)
     private User playerWhite;
 
     @OneToOne
-//    @JoinColumn(unique = true)
     private User updatedByUser;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JsonIgnore
+    @JoinColumn(name = "PARENT_GAME_ID")
     private Game parentGame;
+
+    @Column(name = "PARENT_GAME_ID", insertable = false, updatable = false)
+    private Long parentGameId;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
     public Long getId() {
@@ -246,6 +247,14 @@ public class Game implements Serializable {
 
     public void setParentGame(Game game) {
         this.parentGame = game;
+    }
+
+    public Long getParentGameId() {
+        return parentGameId;
+    }
+
+    public void setParentGameId(Long parentGameId) {
+        this.parentGameId = parentGameId;
     }
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
 
