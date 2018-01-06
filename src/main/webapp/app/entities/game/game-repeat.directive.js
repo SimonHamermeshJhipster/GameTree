@@ -10,16 +10,15 @@
         var directive = {
             restrict: 'E',
             link: linkFunc,
-            template:
-            '<div class="col-md-8" id=board-{{$index}}></div>'
+            templateUrl: 'app/entities/game/game-repeat.html'
         };
 
         return directive;
 
         function linkFunc(scope, element, attrs) {
-            var boardId = 'board-' + scope.$index
+
             $timeout(function(){
-                var gameDetail = ChessBoard(boardId, {
+                var gameDetail = ChessBoard('board-' + scope.$index, {
                                     draggable: false,
                                     dropOffBoard: 'trash',
                                     sparePieces: false,
