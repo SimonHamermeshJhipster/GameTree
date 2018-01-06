@@ -1,0 +1,39 @@
+
+<div>
+    <h2><span>Move</span> {{vm.move.id}}</h2>
+    <hr>
+    <jhi-alert-error></jhi-alert-error>
+    <dl class="dl-horizontal jh-entity-details">
+        <dt><span>Current State</span></dt>
+        <dd>
+            <span>{{vm.move.currentState}}</span>
+        </dd>
+        <dt><span>Prev State</span></dt>
+        <dd>
+            <span>{{vm.move.prevState}}</span>
+        </dd>
+        <dt><span>Time Created</span></dt>
+        <dd>
+            <span>{{vm.move.timeCreated | date:'mediumDate'}}</span>
+        </dd>
+        <dt><span>Created By User</span></dt>
+        <dd>
+            {{vm.move.createdByUser.login}}
+        </dd>
+        <dt><span>Game</span></dt>
+        <dd>
+            <a ui-sref="game-detail({id:vm.move.game.id})">{{vm.move.game.id}}</a>
+        </dd>
+    </dl>
+
+    <button type="submit"
+            ui-sref="{{ vm.previousState }}"
+            class="btn btn-info">
+        <span class="glyphicon glyphicon-arrow-left"></span>&nbsp;<span> Back</span>
+    </button>
+
+    <button type="button" ui-sref="move-detail.edit({id:vm.move.id})" class="btn btn-primary">
+        <span class="glyphicon glyphicon-pencil"></span>
+        <span class="hidden-sm-down"> Edit</span>
+    </button>
+</div>

@@ -42,6 +42,10 @@ public class CacheConfiguration {
             cm.createCache(com.hamermesh.yeah.domain.User.class.getName(), jcacheConfiguration);
             cm.createCache(com.hamermesh.yeah.domain.Authority.class.getName(), jcacheConfiguration);
             cm.createCache(com.hamermesh.yeah.domain.User.class.getName() + ".authorities", jcacheConfiguration);
+            cm.createCache(com.hamermesh.yeah.domain.Move.class.getName(), jcacheConfiguration);
+            cm.createCache(com.hamermesh.yeah.domain.Game.class.getName(), jcacheConfiguration);
+            cm.createCache(com.hamermesh.yeah.domain.Game.class.getName() + ".childGames", jcacheConfiguration);
+            cm.createCache(com.hamermesh.yeah.domain.Game.class.getName() + ".gameMoves", jcacheConfiguration);
             // jhipster-needle-ehcache-add-entry
         };
     }

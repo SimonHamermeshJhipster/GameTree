@@ -1,0 +1,55 @@
+
+<div>
+    <h2><span>Game</span> {{vm.game.id}}</h2>
+    <hr>
+    <jhi-alert-error></jhi-alert-error>
+    <dl class="dl-horizontal jh-entity-details">
+        <dt><span>Branch Depth</span></dt>
+        <dd>
+            <span>{{vm.game.branchDepth}}</span>
+        </dd>
+        <dt><span>Time Updated</span></dt>
+        <dd>
+            <span>{{vm.game.timeUpdated | date:'mediumDate'}}</span>
+        </dd>
+        <dt><span>Time Created</span></dt>
+        <dd>
+            <span>{{vm.game.timeCreated | date:'mediumDate'}}</span>
+        </dd>
+        <dt><span>Current State</span></dt>
+        <dd>
+            <span>{{vm.game.currentState}}</span>
+        </dd>
+        <dt><span>Is Root</span></dt>
+        <dd>
+            <span>{{vm.game.isRoot}}</span>
+        </dd>
+        <dt><span>Player Black</span></dt>
+        <dd>
+            {{vm.game.playerBlack.login}}
+        </dd>
+        <dt><span>Player White</span></dt>
+        <dd>
+            {{vm.game.playerWhite.login}}
+        </dd>
+        <dt><span>Updated By User</span></dt>
+        <dd>
+            {{vm.game.updatedByUser.login}}
+        </dd>
+        <dt><span>Parent Game</span></dt>
+        <dd>
+            <a ui-sref="game-detail({id:vm.game.parentGame.id})">{{vm.game.parentGame.id}}</a>
+        </dd>
+    </dl>
+
+    <button type="submit"
+            ui-sref="{{ vm.previousState }}"
+            class="btn btn-info">
+        <span class="glyphicon glyphicon-arrow-left"></span>&nbsp;<span> Back</span>
+    </button>
+
+    <button type="button" ui-sref="game-detail.edit({id:vm.game.id})" class="btn btn-primary">
+        <span class="glyphicon glyphicon-pencil"></span>
+        <span class="hidden-sm-down"> Edit</span>
+    </button>
+</div>

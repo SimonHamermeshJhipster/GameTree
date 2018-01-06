@@ -1,0 +1,113 @@
+<div>
+    <h2>Games</h2>
+    <jhi-alert></jhi-alert>
+
+    <div ng-repeat="game in vm.games track by game.id">
+        <game-repeat></game-repeat>
+    </div>
+
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-xs-4 no-padding-left">
+                <button class="btn btn-primary" ui-sref="simon" >
+                    <span class="glyphicon glyphicon-plus"></span>
+                    <span >
+                        Press for Simon (Router/State Change Test)
+                    </span>
+                </button>
+            </div>
+        </div>
+        <div class="row">
+            <div id="simon-board" style="width: 50%">
+                {{vm.simon}}
+            </div>
+            <button class="btn btn-danger" ng-click="vm.testFunction()">
+                <span class="glyphicon glyphicon-plus"></span>
+                <span>
+                    Test Function
+                </span>
+            </button>
+        </div>
+    </div>
+    <br/>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-xs-4 no-padding-left">
+                <button class="btn btn-primary" ui-sref="game.new" >
+                    <span class="glyphicon glyphicon-plus"></span>
+                    <span >
+                        Create new Game
+                    </span>
+                </button>
+            </div>
+        </div>
+    </div>
+    <br/>
+    <div class="table-responsive">
+        <table class="jh-table table table-striped">
+            <thead>
+                <tr jh-sort="vm.predicate" ascending="vm.reverse" callback="vm.transition()">
+                    <th jh-sort-by="id"><span>ID</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="branchDepth"><span>Branch Depth</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="timeUpdated"><span>Time Updated</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="timeCreated"><span>Time Created</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="currentState"><span>Current State</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="isRoot"><span>Is Root</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="playerBlack.login"><span>Player Black</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="playerWhite.login"><span>Player White</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="updatedByUser.login"><span>Updated By User</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="parentGame.id"><span>Parent Game</span> <span class="glyphicon glyphicon-sort"></span></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="game in vm.games track by game.id">
+                    <td><a ui-sref="game-detail({id:game.id})">{{game.id}}</a></td>
+                    <td>{{game.branchDepth}}</td>
+                        <td>{{game.timeUpdated | date:'mediumDate'}}</td>
+                        <td>{{game.timeCreated | date:'mediumDate'}}</td>
+                    <td>{{game.currentState}}</td>
+                    <td>{{game.isRoot}}</td>
+                    <td>
+                        {{game.playerBlack.login}}
+                    </td>
+                    <td>
+                        {{game.playerWhite.login}}
+                    </td>
+                    <td>
+                        {{game.updatedByUser.login}}
+                    </td>
+                    <td>
+                        <a ui-sref="game-detail({id:game.parentGame.id})">{{game.parentGame.id}}</a>
+                    </td>
+
+                    <td class="text-right">
+                        <div class="btn-group flex-btn-group-container">
+                            <button type="submit"
+                                    ui-sref="game-detail({id:game.id})"
+                                    class="btn btn-info btn-sm">
+                                <span class="glyphicon glyphicon-eye-open"></span>
+                                <span class="hidden-sm-down"></span>
+                            </button>
+                            <button type="submit"
+                                    ui-sref="game.edit({id:game.id})"
+                                    class="btn btn-primary btn-sm">
+                                <span class="glyphicon glyphicon-pencil"></span>
+                                <span class="hidden-sm-down"></span>
+                            </button>
+                            <button type="submit"
+                                    ui-sref="game.delete({id:game.id})"
+                                    class="btn btn-danger btn-sm">
+                                <span class="glyphicon glyphicon-remove-circle"></span>
+                                <span class="hidden-sm-down"></span>
+                            </button>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="text-center">
+        <jhi-item-count page="vm.page" total="vm.queryCount" items-per-page="vm.itemsPerPage"></jhi-item-count>
+    </div>
+    <uib-pager total-items="vm.totalItems" ng-model="vm.page" ng-change="vm.transition()"></uib-pager>
+</div>
