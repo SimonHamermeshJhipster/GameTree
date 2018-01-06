@@ -1,9 +1,13 @@
 package com.hamermesh.yeah.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.hibernate.annotations.*;
 import org.hibernate.annotations.Cache;
-import org.hibernate.annotations.CacheConcurrencyStrategy;
+import org.hibernate.annotations.CascadeType;
 
 import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.Table;
 import javax.validation.constraints.*;
 
 import java.io.Serializable;
@@ -36,12 +40,22 @@ public class Move implements Serializable {
     @Column(name = "time_created", nullable = false)
     private LocalDate timeCreated;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "CREATED_BY_USER_ID", insertable = false, updatable = false)
+    @JsonIgnore
     private User createdByUser;
 
-    @ManyToOne(optional = false)
-    @NotNull
+    @Column(name = "CREATED_BY_USER_ID")
+    private Long createdByUserId;
+
+    @ManyToOne(optional = false, fetch = FetchType.LAZY)
+//    @Cascade(CascadeType.SAVE_UPDATE)
+    @JoinColumn(name = "GAME_ID", insertable = false, updatable = false)
+    @JsonIgnore
     private Game game;
+
+    @Column(name = "GAME_ID")
+    private Long gameId;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
     public Long getId() {
@@ -104,6 +118,14 @@ public class Move implements Serializable {
         this.createdByUser = user;
     }
 
+    public Long getCreatedByUserId() {
+        return createdByUserId;
+    }
+
+    public void setCreatedByUserId(Long createdByUserId) {
+        this.createdByUserId = createdByUserId;
+    }
+
     public Game getGame() {
         return game;
     }
@@ -116,6 +138,15 @@ public class Move implements Serializable {
     public void setGame(Game game) {
         this.game = game;
     }
+
+    public Long getGameId() {
+        return gameId;
+    }
+
+    public void setGameId(Long gameId) {
+        this.gameId = gameId;
+    }
+
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
 
     @Override
@@ -145,6 +176,8 @@ public class Move implements Serializable {
             ", currentState='" + getCurrentState() + "'" +
             ", prevState='" + getPrevState() + "'" +
             ", timeCreated='" + getTimeCreated() + "'" +
+            ", gameid='" + getGameId() + "'" +
+            ", gameid='" + getCreatedByUserId() + "'" +
             "}";
     }
 }

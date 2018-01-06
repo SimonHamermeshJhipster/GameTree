@@ -52,8 +52,8 @@ public class Game implements Serializable {
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
     private Set<Game> childGames = new HashSet<>();
 
-    @OneToMany(mappedBy = "game")
-    @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
+    @OneToMany(mappedBy = "game", cascade = CascadeType.REMOVE, orphanRemoval = true, fetch = FetchType.EAGER)
+//    @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
     private Set<Move> gameMoves = new HashSet<>();
 
     @OneToOne
